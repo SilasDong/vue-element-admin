@@ -2,11 +2,11 @@ import fetch from 'utils/fetch';
 
 export function loginByEmail(email, password) {
   const data = {
-    email,
-    password
+    username: email,
+    passwd:password
   };
   return fetch({
-    url: '/login/loginbyemail',
+    url: '/CommonApi/api/GetCommonData/login',
     method: 'post',
     data
   });
