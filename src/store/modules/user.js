@@ -67,9 +67,9 @@ const user = {
       const email = userInfo.email.trim();
       return new Promise((resolve, reject) => {
         loginByEmail(email, userInfo.password).then(response => {
-          const data = response.data;
-          Cookies.set('Admin-Token', response.data.token);
-          commit('SET_TOKEN', data.token);
+          const data = response.data.value;
+          Cookies.set('Admin-Token', data.accessToken);
+          commit('SET_TOKEN', data.accessToken);
           commit('SET_EMAIL', email);
           resolve();
         }).catch(error => {
@@ -83,10 +83,10 @@ const user = {
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getInfo(state.token).then(response => {
-          const data = response.data;
-          commit('SET_ROLES', data.role);
-          commit('SET_NAME', data.name);
-          commit('SET_AVATAR', data.avatar);
+          const data = response.data.value;
+          commit('SET_ROLES', [data.EN_NAME]);
+          commit('SET_NAME', data.NICKNAME);
+          commit('SET_AVATAR', data.avatar || 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif');
           commit('SET_UID', data.uid);
           commit('SET_INTRODUCTION', data.introduction);
           resolve(response);
@@ -131,6 +131,7 @@ const user = {
         commit('SET_TOKEN', '');
         Cookies.remove('Admin-Token');
         resolve();
+        location.reload();
       });
     },
 
@@ -147,3 +148,7 @@ const user = {
 };
 
 export default user;
+
+function setRole(data){
+
+}

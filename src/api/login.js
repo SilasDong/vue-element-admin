@@ -3,7 +3,7 @@ import fetch from 'utils/fetch';
 export function loginByEmail(email, password) {
   const data = {
     username: email,
-    passwd:password
+    passwd: password
   };
   return fetch({
     url: '/CommonApi/api/GetCommonData/login',
@@ -14,14 +14,14 @@ export function loginByEmail(email, password) {
 
 export function logout() {
   return fetch({
-    url: '/login/logout',
+    url: '/CommonApi/api/Logout',
     method: 'post'
   });
 }
 
 export function getInfo(token) {
   return fetch({
-    url: '/user/info',
+    url: '/CommonApi/api/GetUserInfo',
     method: 'get',
     params: { token }
   });

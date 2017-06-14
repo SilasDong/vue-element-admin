@@ -16,6 +16,9 @@ const dashboard = () => import('../views/dashboard/index');
 /* Introduction */
 const Introduction = () => import('../views/introduction/index');
 
+/* system */
+const apiSetting = () => import('../views/system/apiSetting');
+
 /* components */
 const componentsIndex = () => import('../views/components/index');
 const Tinymce = () => import('../views/components/tinymce');
@@ -86,33 +89,28 @@ export const constantRouterMap = [
     name: '首页',
     hidden: true,
     children: [{ path: 'dashboard', component: dashboard }]
-  },
-  {
-    path: '/introduction',
-    component: Layout,
-    redirect: '/introduction/index',
-    icon: 'xinrenzhinan',
-    noDropdown: true,
-    children: [{ path: 'index', component: Introduction, name: '简述' }]
   }
 ]
 
 export default new Router({
-  // mode: 'history', //后端支持可开
+  mode: 'history', // 后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 });
 
 export const asyncRouterMap = [
   {
-    path: '/permission',
+    path: '/system',
     component: Layout,
-    redirect: '/permission/index',
-    name: '权限测试',
-    icon: 'quanxian',
+    redirect: 'noredirect',
+    name: '系统设置',
+    icon: 'system',
     meta: { role: ['admin'] },
-    noDropdown: true,
-    children: [{ path: 'index', component: Permission, name: '权限测试页', meta: { role: ['admin'] } }]
+    children: [
+      { path: 'role', component: componentsIndex, name: '角色管理', meta: { role: ['admin'] } },
+      { path: 'user', component: Tinymce, name: '用户管理', meta: { role: ['admin'] } },
+      { path: 'apiSetting', component: apiSetting, name: '接口配置', meta: { role: ['admin'] } }
+    ]
   },
   {
     path: '/components',
@@ -121,7 +119,7 @@ export const asyncRouterMap = [
     name: '组件',
     icon: 'zujian',
     children: [
-      { path: 'index', component: componentsIndex, name: '介绍 ' },
+      { path: 'index', component: componentsIndex, name: '介绍' },
       { path: 'tinymce', component: Tinymce, name: '富文本编辑器' },
       { path: 'markdown', component: Markdown, name: 'Markdown' },
       { path: 'jsoneditor', component: JsonEditor, name: 'JSON编辑器' },

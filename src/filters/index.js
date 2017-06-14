@@ -106,3 +106,11 @@ export function html2Text(val) {
 export function toThousandslsFilter(num) {
   return (+num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
 }
+
+export function substring(text, index) {
+  if (!text) return;
+  if (text.length > index) {
+    text = text.substring(0, index) + '...';
+  }
+  return text;
+}
